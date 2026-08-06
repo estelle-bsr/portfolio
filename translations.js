@@ -18,7 +18,7 @@ const translations = {
       "title": "Future ingénieure, je transforme la complexité technique en solutions fiables et sécurisées.",
       "shortDesc": "Informatique, programmation et innovation sont au cœur de ma passion. Curieuse et déterminée, je développe des solutions créatives pour relever des défis et aider les autres à travers la technologie.",
       "typewriter": [
-        "Alternante en cybersécurité (EPITA & MinArm).",
+        "Alternante en cybersécurité (EPITA & MinArmAc).",
         "Développeuse Python, Java et Web.",
         "Recherche un stage (Janv-Fév ou dès Mai 2028)."
       ],
@@ -50,7 +50,8 @@ const translations = {
       "certif1": "Protection du secret (DRSD)",
       "certif2": "PSC1 & Gestes qui sauvent",
       "certif3": "Permis B",
-      "certif4": "BUT Informatique & Baccalauréat",
+      "certif4": "BUT Informatique",
+      "certif5": "Baccalauréat général",
       "interestsLabel": "Centres d'intérêt",
       "interest1": "Danse (10 ans)",
       "interest2": "Boxe",
@@ -303,7 +304,8 @@ const translations = {
       "certif1": "Secrecy Protection (DRSD)",
       "certif2": "First Aid (PSC1)",
       "certif3": "Driving License (B)",
-      "certif4": "IT Bachelor's & High School Diploma",
+      "certif4": "IT Bachelor's",
+      "certif5": "High School Diploma",
       "interestsLabel": "Interests",
       "interest1": "Dancing (10 years)",
       "interest2": "Boxing",
