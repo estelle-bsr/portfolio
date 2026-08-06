@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#121212">
+  <title>Mentions Légales — Estelle Boisserie</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="translations.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header class="navbar scrolled" style="border-bottom: 1px solid var(--glass-border);">
+    <div class="nav-inner">
+      <a href="index.html" class="logo-wrapper" aria-label="Retour accueil">
+        <svg class="logo-svg" viewBox="0 0 100 40" width="80" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="5" y="30" font-family="Outfit, sans-serif" font-size="32" font-weight="800" fill="currentColor">E<tspan fill="#d1345b">.</tspan>B</text>
+        </svg>
+      </a>
+
+      <div class="lang-switch" role="group" aria-label="Choisir la langue" data-i18n-aria-label="nav.languageLabel" style="margin-left: auto; margin-right: 20px;">
+        <button type="button" class="lang-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="lang-option" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <a href="index.html" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.85rem;" data-i18n="legal.backBtn">Retour au portfolio</a>
+    </div>
+  </header>
+
+  <main id="main-content" style="padding-top: 140px; padding-bottom: 80px;">
+    <section class="section-inner">
+      <h1 class="section-title" style="margin-bottom: 40px;" data-i18n="legal.title">Mentions légales & Politique de confidentialité</h1>
+      
+      <div class="glass-card" style="padding: 40px; color: var(--text-1);">
+        
+        <h2 style="color: var(--text-0); font-family: var(--font-display); margin-bottom: 15px; font-size: 1.4rem;" data-i18n="legal.editorTitle">1. Éditeur du site</h2>
+        <p class="text-justify" style="margin-bottom: 25px;" data-i18n-html="legal.editorText">
+          Le présent site, accessible à l'URL correspondant à ce portfolio, est édité par :<br>
+          <strong>Estelle Boisserie</strong><br>
+          Contact : <a href="mailto:estelleboisserie@orange.fr" style="color: var(--raspberry-light); text-decoration: underline;">estelleboisserie@orange.fr</a><br>
+          Ce site est édité à titre non professionnel. Conformément à l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), l'éditrice a fait le choix de préserver son anonymat concernant son adresse postale personnelle. Les coordonnées complètes ont été transmises à l'hébergeur.
+        </p>
+
+        <h2 style="color: var(--text-0); font-family: var(--font-display); margin-bottom: 15px; font-size: 1.4rem;" data-i18n="legal.hostTitle">2. Hébergement</h2>
+        <p class="text-justify" style="margin-bottom: 25px;" data-i18n-html="legal.hostText">
+          Le site est hébergé par la plateforme <strong>GitHub Pages</strong>, un service fourni par :<br>
+          GitHub, Inc.<br>
+          88 Colin P Kelly Jr St<br>
+          San Francisco, CA 94107<br>
+          États-Unis<br>
+          Site web : <a href="https://github.com" target="_blank" rel="noopener" style="color: var(--raspberry-light); text-decoration: underline;">https://github.com</a>
+        </p>
+
+        <h2 style="color: var(--text-0); font-family: var(--font-display); margin-bottom: 15px; font-size: 1.4rem;" data-i18n="legal.dataTitle">3. Données personnelles & RGPD</h2>
+        <p class="text-justify" style="margin-bottom: 25px;" data-i18n-html="legal.dataText">
+          L'éditrice du site accorde une grande importance à la protection de vos données personnelles. Les informations recueillies via le formulaire de contact (Nom, Email, Message) sont strictement confidentielles et servent uniquement à vous répondre dans le cadre d'opportunités professionnelles.<br><br>
+          <strong>Sous-traitance :</strong> L'envoi des emails est techniquement assuré par le service tiers <strong>Formspree</strong> (Formspree Inc.). En soumettant le formulaire, vous acceptez que vos données transitent par leurs serveurs sécurisés afin de m'être acheminées. Aucune donnée n'est revendue à des tiers ou utilisée à des fins de profilage.<br><br>
+          Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression de vos données. Vous pouvez exercer ce droit en m'écrivant directement à l'adresse email mentionnée plus haut.
+        </p>
+
+        <h2 style="color: var(--text-0); font-family: var(--font-display); margin-bottom: 15px; font-size: 1.4rem;" data-i18n="legal.cookiesTitle">4. Cookies & Services tiers (Bibliothèques)</h2>
+        <p class="text-justify" style="margin-bottom: 25px;" data-i18n-html="legal.cookiesText">
+          Ce site web est un site statique qui ne dépose <strong>aucun cookie de suivi publicitaire ou d'analyse</strong> (type Google Analytics) sur votre terminal.<br><br>
+          Toutefois, pour assurer le bon fonctionnement technique des animations et des modèles 3D, le site fait appel à des bibliothèques externes hébergées sur le réseau de distribution de contenu (CDN) <strong>Cloudflare (cdnjs)</strong>. Il s'agit des bibliothèques <em>GSAP</em> (animations) et <em>Three.js</em> (rendu 3D). Cloudflare peut être amené à collecter des données techniques anonymisées (comme l'adresse IP) de manière temporaire à des fins de sécurité et de performances réseau.
+        </p>
+
+        <h2 style="color: var(--text-0); font-family: var(--font-display); margin-bottom: 15px; font-size: 1.4rem;" data-i18n="legal.ipTitle">5. Propriété intellectuelle</h2>
+        <p class="text-justify" data-i18n-html="legal.ipText">
+          L'ensemble des éléments figurant sur ce site (textes, conception, structure, images - hors logos appartenant à leurs propriétaires respectifs comme GitHub) sont la propriété exclusive d'Estelle Boisserie ou font l'objet d'une autorisation d'utilisation. Toute reproduction, représentation, modification ou adaptation, même partielle, est strictement interdite sans accord écrit préalable.
+        </p>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="margin-top: 40px;">
+    <div class="section-inner footer-inner">
+      <a href="index.html" class="logo">E<span class="logo-dot" style="color: var(--raspberry-light);">.</span>B</a>
+      <p class="footer-text">
+        &copy; <script>document.write(new Date().getFullYear())</script> <span data-i18n="footer.text">Estelle Boisserie.</span>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

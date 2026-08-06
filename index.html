@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#121212">
+  <meta name="author" content="Estelle Boisserie">
+  <title>Estelle Boisserie — Étudiante ingénieure &amp; cybersécurité</title>
+  <link rel="icon" href="assets/imgs/logo.svg" type="image/svg+xml">
+  <meta name="description" content="Portfolio d'Estelle Boisserie — étudiante ingénieure en cybersécurité (EPITA), développeuse Python/Web, à la recherche d'un stage. Projets, compétences et parcours.">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="translations.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="nav.skipToContent">Aller au contenu principal</a>
+  
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="logo-wrapper" aria-label="Retour accueil">
+        <svg class="logo-svg" viewBox="0 0 100 40" width="80" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="5" y="30" font-family="Outfit, sans-serif" font-size="32" font-weight="800" fill="currentColor">E<tspan fill="#d1345b">.</tspan>B</text>
+        </svg>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Navigation principale" data-i18n-aria-label="nav.navLabel">
+        <a href="#about" data-i18n="nav.about">À propos</a>
+        <a href="#skills" data-i18n="nav.skills">Compétences</a>
+        <a href="#projects" data-i18n="nav.projects">Projets</a>
+        <a href="#experience" data-i18n="nav.experience">Parcours</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <div class="lang-switch" role="group" aria-label="Choisir la langue" data-i18n-aria-label="nav.languageLabel">
+          <button type="button" class="lang-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+          <button type="button" class="lang-option" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+      <a href="#contact" class="btn btn-ghost nav-cta" data-i18n="nav.cta">Discutons</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème clair ou sombre" data-i18n-aria-label="nav.themeToggleLabel">
+        <span class="icon-dark" aria-hidden="true">&#9789;</span>
+        <span class="icon-light" aria-hidden="true">&#9728;</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="hero" aria-label="Présentation">
+      <div class="halo halo-primary" aria-hidden="true"></div>
+      <div class="halo halo-secondary" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+      
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+          <h1 class="hero-title" data-i18n="hero.title"></h1>
+          
+          <p class="hero-desc" data-i18n="hero.shortDesc"></p>
+          
+          <p class="hero-sub">
+            <span id="typewriter" aria-hidden="true"></span><span class="caret" aria-hidden="true">|</span>
+          </p>
+          
+          <div class="hero-actions">
+            <a href="#experience" class="btn btn-primary" data-i18n="hero.ctaPrimary"></a>
+            <a href="#contact" class="btn btn-outline" data-i18n="hero.ctaSecondary"></a>
+          </div>
+          
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-num" data-count="3">0</span>
+              <span class="stat-label" data-i18n="hero.stat1Label"></span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="11">0</span>
+              <span class="stat-label" data-i18n="hero.stat2Label"></span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="3">0</span>
+              <span class="stat-label" data-i18n="hero.stat3Label"></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <div class="character-stage" id="character-stage">
+            <div id="hero-3d-canvas" class="hero-canvas"></div>
+            <div class="float-badge badge-1" data-speed="1.4" aria-hidden="true"><span class="badge-dot"></span> Python</div>
+            <div class="float-badge badge-2" data-speed="0.8" aria-hidden="true"><span class="badge-dot"></span> <span data-i18n="hero.badgeCyber"></span></div>
+            <div class="float-badge badge-3" data-speed="1.1" aria-hidden="true"><span class="badge-dot"></span> SQL</div>
+            <div class="float-badge badge-4" data-speed="1.6" aria-hidden="true"><span class="badge-dot"></span> Java</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Python</span><span>•</span><span>Java</span><span>•</span><span>C++</span><span>•</span><span>JavaScript</span><span>•</span><span>PHP</span><span>•</span><span>Django</span><span>•</span><span>SQL</span><span>•</span><span>Git</span><span>•</span><span>PyQt5</span><span>•</span><span>OpenCV</span><span>•</span><span>Cybersécurité</span><span>•</span><span>Agile / Scrum</span><span>•</span>
+      </div>
+      <div class="marquee-track">
+        <span>Python</span><span>•</span><span>Java</span><span>•</span><span>C++</span><span>•</span><span>JavaScript</span><span>•</span><span>PHP</span><span>•</span><span>Django</span><span>•</span><span>SQL</span><span>•</span><span>Git</span><span>•</span><span>PyQt5</span><span>•</span><span>OpenCV</span><span>•</span><span>Cybersécurité</span><span>•</span><span>Agile / Scrum</span><span>•</span>
+      </div>
+    </div>
+
+    <section class="section about" id="about" aria-labelledby="about-heading">
+      <div class="section-inner">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="about.eyebrow"></p>
+          <h2 class="section-title" id="about-heading" data-i18n="about.title"></h2>
+        </div>
+        
+        <div class="about-grid">
+          <div class="about-visual">
+            <img src="assets/imgs/Estelle.PNG" alt="" class="about-photo glass-card" data-i18n-alt="about.photoAlt" loading="lazy">
+          </div>
+          
+          <div class="about-content">
+            <p class="about-text" data-i18n="about.bio1"></p>
+            <p class="about-text" data-i18n="about.bio2"></p>
+            <p class="about-text" data-i18n="about.bio3"></p>
+            <p class="about-text" data-i18n="about.bio4"></p>
+            
+            <div class="about-cards">
+              <div class="glass-card info-card">
+                <p class="info-num" aria-hidden="true">01</p>
+                <h3 class="info-title" data-i18n="about.card1Title"></h3>
+                <p class="info-sub" data-i18n="about.card1Sub"></p>
+              </div>
+              <div class="glass-card info-card">
+                <p class="info-num" aria-hidden="true">02</p>
+                <h3 class="info-title" data-i18n="about.card2Title"></h3>
+                <p class="info-sub" data-i18n="about.card2Sub"></p>
+              </div>
+              <div class="glass-card info-card">
+                <p class="info-num" aria-hidden="true">03</p>
+                <h3 class="info-title" data-i18n="about.card3Title"></h3>
+                <p class="info-sub" data-i18n="about.card3Sub"></p>
+              </div>
+            </div>
+            
+            <div class="about-extra">
+              <div class="extra-block">
+                <h3 class="extra-label" data-i18n="about.certifLabel"></h3>
+                <ul class="tag-list">
+                  <li data-i18n="about.certif1"></li>
+                  <li data-i18n="about.certif2"></li>
+                  <li data-i18n="about.certif3"></li>
+                  <li data-i18n="about.certif4"></li>
+                </ul>
+              </div>
+              <div class="extra-block">
+                <h3 class="extra-label" data-i18n="about.interestsLabel"></h3>
+                <ul class="tag-list">
+                  <li data-i18n="about.interest1"></li>
+                  <li data-i18n="about.interest2"></li>
+                  <li data-i18n="about.interest3"></li>
+                  <li data-i18n="about.interest4"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills" id="skills" aria-labelledby="skills-heading">
+      <div class="section-inner">
+        <div class="section-head center">
+          <p class="eyebrow" data-i18n="skills.eyebrow"></p>
+          <h2 class="section-title" id="skills-heading" data-i18n="skills.title"></h2>
+        </div>
+        
+        <div class="skills-grid">
+          <div class="skill-card glass-card">
+            <h3 class="skill-cat-title" data-i18n="skills.cat1Title"></h3>
+            <ul class="tag-list"><li>Python</li><li>Java</li><li>C / C++ / C#</li></ul>
+          </div>
+          <div class="skill-card glass-card">
+            <h3 class="skill-cat-title" data-i18n="skills.cat2Title"></h3>
+            <ul class="tag-list"><li>HTML / CSS / JS</li><li>PHP</li><li>Django</li></ul>
+          </div>
+          <div class="skill-card glass-card">
+            <h3 class="skill-cat-title" data-i18n="skills.cat3Title"></h3>
+            <ul class="tag-list"><li>SQL</li><li>Oracle (PL/SQL)</li><li>MySQL / SQLite</li></ul>
+          </div>
+          <div class="skill-card glass-card">
+            <h3 class="skill-cat-title" data-i18n="skills.cat4Title"></h3>
+            <ul class="tag-list"><li>Git</li><li>PyQt5 / OpenCV</li><li>Agile / Scrum</li></ul>
+          </div>
+        </div>
+        
+        <div class="skills-secondary">
+          <div class="glass-card skills-row">
+            <h3 class="skill-cat-title" data-i18n="skills.softTitle"></h3>
+            <ul class="tag-list">
+              <li data-i18n="skills.soft1"></li>
+              <li data-i18n="skills.soft2"></li>
+              <li data-i18n="skills.soft3"></li>
+              <li data-i18n="skills.soft4"></li>
+            </ul>
+          </div>
+          <div class="glass-card skills-row">
+            <h3 class="skill-cat-title" data-i18n="skills.langTitle"></h3>
+            <ul class="tag-list">
+              <li data-i18n="skills.lang1"></li>
+              <li data-i18n="skills.lang2"></li>
+              <li data-i18n="skills.lang3"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects" aria-labelledby="projects-heading">
+      <div class="section-inner">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="projects.eyebrow"></p>
+          <h2 class="section-title" id="projects-heading" data-i18n="projects.title"></h2>
+        </div>
+        
+        <div class="projects-grid">
+          
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-1"><span class="project-tag" data-i18n="projects.proj1Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj1Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj1Desc"></p>
+              <ul class="project-tech"><li>Python</li><li>PyQt5</li><li>OpenCV</li><li>Cython</li></ul>
+              <div class="project-links">
+                <span class="link-confidential">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                  </svg>
+                  <span data-i18n="projects.confidential"></span>
+                </span>
+              </div>
+            </div>
+          </article>
+          
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-2"><span class="project-tag" data-i18n="projects.proj2Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj2Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj2Desc"></p>
+              <ul class="project-tech"><li>IA Supervisée</li><li>Python</li><li>Analyse d'images</li></ul>
+              <div class="project-links">
+                <span class="link-confidential">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                  </svg>
+                  <span data-i18n="projects.confidential"></span>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-3"><span class="project-tag" data-i18n="projects.proj3Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj3Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj3Desc"></p>
+              <ul class="project-tech"><li>Web</li><li>SQL</li><li>Auth</li></ul>
+              <div class="project-links">
+                <span class="link-confidential">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                  </svg>
+                  <span data-i18n="projects.confidential"></span>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-4"><span class="project-tag" data-i18n="projects.proj4Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj4Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj4Desc"></p>
+              <ul class="project-tech"><li>Python</li><li>Scrum</li><li>Vision</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/Nao-chess" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+          
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-5"><span class="project-tag" data-i18n="projects.proj5Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj5Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj5Desc"></p>
+              <ul class="project-tech"><li>Godot</li><li>GDScript</li><li>Accessibilité</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/Matthe-Mystere-S4" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-6"><span class="project-tag" data-i18n="projects.proj6Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj6Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj6Desc"></p>
+              <ul class="project-tech"><li>HTML/CSS/JS</li><li>PHP</li><li>SQL</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/pizzeria-S3" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+          
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-1"><span class="project-tag" data-i18n="projects.proj7Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj7Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj7Desc"></p>
+              <ul class="project-tech"><li>Java</li><li>POO</li><li>Gestion Projet</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/application_interactive-Lite-S2" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+          
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-2"><span class="project-tag" data-i18n="projects.proj8Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj8Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj8Desc"></p>
+              <ul class="project-tech"><li>MCD</li><li>SQL</li><li>PL/SQL</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/La_Casa_de_papel-database-S2" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-3"><span class="project-tag" data-i18n="projects.proj9Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj9Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj9Desc"></p>
+              <ul class="project-tech"><li>MCD</li><li>SQLite</li><li>Conception</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/Corvland_Compertition-database-S1" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-4"><span class="project-tag" data-i18n="projects.proj10Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj10Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj10Desc"></p>
+              <ul class="project-tech"><li>Python</li><li>Jeu Vidéo</li></ul>
+              <div class="project-links">
+                <a href="https://github.com/estelle-bsr/jeu_asteroide-Terminale" class="link-github" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  <span data-i18n="projects.githubLink"></span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass-card">
+            <div class="project-media proj-media-5"><span class="project-tag" data-i18n="projects.proj11Tag"></span></div>
+            <div class="project-body">
+              <h3 class="project-title" data-i18n="projects.proj11Title"></h3>
+              <p class="project-desc" data-i18n="projects.proj11Desc"></p>
+              <ul class="project-tech"><li>HTML</li><li>CSS</li><li>Notepad++</li></ul>
+              <div class="project-links">
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section experience" id="experience" aria-labelledby="experience-heading">
+      <div class="section-inner">
+        <div class="section-head center">
+          <p class="eyebrow" data-i18n="experience.eyebrow"></p>
+          <h2 class="section-title" id="experience-heading" data-i18n="experience.title"></h2>
+        </div>
+        
+        <div class="timeline-filters" role="group" data-i18n-aria-label="experience.filterAria">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true" data-i18n="experience.filterAll"></button>
+          <button type="button" class="filter-btn" data-filter="pro" aria-pressed="false" data-i18n="experience.filterPro"></button>
+          <button type="button" class="filter-btn" data-filter="edu" aria-pressed="false" data-i18n="experience.filterEdu"></button>
+          <button type="button" class="filter-btn" data-filter="vol" aria-pressed="false" data-i18n="experience.filterVol"></button>
+        </div>
+
+        <ol class="timeline">
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp1Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp1Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp1Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp1Desc"></p>
+              </div>
+            </div>
+          </li>
+          
+          <li class="timeline-item" data-category="edu">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-formation" data-i18n="experience.typeEdu"></span>
+              <p class="timeline-date" data-i18n="experience.exp2Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp2Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp2Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp2Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <a href="https://www.epita.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="vol">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-vol" data-i18n="experience.typeVol"></span>
+              <p class="timeline-date" data-i18n="experience.exp3Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp3Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp3Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp3Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <button type="button" class="timeline-link js-open-modal" data-img="assets/imgs/mjc-conference.jpg"><span data-i18n="experience.btnPhoto"></span></button>
+                <a href="https://mjcgometzlechatel.wordpress.com/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+                <a href="https://www.facebook.com/people/Mjc-Gometz-le-Ch%C3%A2tel/100017310646930/" target="_blank" class="timeline-link"><span data-i18n="experience.btnFb"></span></a>
+                <a href="https://www.instagram.com/mjcgometzlechatel" target="_blank" class="timeline-link"><span data-i18n="experience.btnInsta"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp4Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp4Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp4Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp4Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <a href="https://www-llb.cea.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+                <a href="https://iramis.cea.fr/2023/06/nouvel-equipement-spec-llb-pour-les-etudes-en-physique-du-solide-four-a-image-pour-obtenir-des-monocristaux-de-haute-qualite/" target="_blank" class="timeline-link"><span data-i18n="experience.btnArticle"></span></a>
+                <!-- <a href="#" target="_blank" class="timeline-link"><span data-i18n="experience.btnReport"></span></a> -->
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="vol">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-vol" data-i18n="experience.typeVol"></span>
+              <p class="timeline-date" data-i18n="experience.exp5Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp5Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp5Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp5Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <button type="button" class="timeline-link js-open-modal" data-img="assets/imgs/randogom2026.jpg"><span data-i18n="experience.btnPhoto"></span></button>
+                <a href="https://www.randogom.com/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+                <a href="https://www.facebook.com/people/RandoGom/100088498164135/" target="_blank" class="timeline-link"><span data-i18n="experience.btnFb"></span></a>
+                <a href="https://www.instagram.com/randogom/" target="_blank" class="timeline-link"><span data-i18n="experience.btnInsta"></span></a>
+                <a href="https://www.twitch.tv/randogom" target="_blank" class="timeline-link"><span data-i18n="experience.btnTwitch"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="vol">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-vol" data-i18n="experience.typeVol"></span>
+              <p class="timeline-date" data-i18n="experience.exp6Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp6Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp6Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp6Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+                <img src="assets/imgs/randogom-technique.jpg" alt="Installation technique" class="timeline-photo" loading="lazy" style="display: none;">
+              </div>
+              <div class="timeline-links">
+                <button type="button" class="timeline-link js-open-modal" data-img="assets/imgs/randogom2025.jpg"><span data-i18n="experience.btnPhoto"></span></button>
+                <a href="https://www.randogom.com/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+                <a href="https://www.facebook.com/people/RandoGom/100088498164135/" target="_blank" class="timeline-link"><span data-i18n="experience.btnFb"></span></a>
+                <a href="https://www.instagram.com/randogom/" target="_blank" class="timeline-link"><span data-i18n="experience.btnInsta"></span></a>
+                <a href="https://www.twitch.tv/randogom" target="_blank" class="timeline-link"><span data-i18n="experience.btnTwitch"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="edu">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-formation" data-i18n="experience.typeEdu"></span>
+              <p class="timeline-date" data-i18n="experience.exp7Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp7Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp7Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp7Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <a href="https://www.iut-orsay.universite-paris-saclay.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp8Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp8Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp8Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp8Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp9Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp9Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp9Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp9Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <a href="https://www.nounou-top.fr/babysitting-gometz-le-chatel-2" target="_blank" class="timeline-link"><span data-i18n="experience.btnProfile"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp10Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp10Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp10Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp10Desc"></p>
+              </div>
+              <div class="timeline-links">
+                <a href="http://www.sephat.fr/templates/groupPublic.aspx?GroupGuid=11511" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp11Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp11Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp11Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp11Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp12Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp12Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp12Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp12Desc"></p>
+              </div>
+              <div class="timeline-links">
+                <a href="http://www.sephat.fr/templates/groupPublic.aspx?GroupGuid=11511" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="edu">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-formation" data-i18n="experience.typeEdu"></span>
+              <p class="timeline-date" data-i18n="experience.exp13Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp13Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp13Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp13Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+              <div class="timeline-links">
+                <a href="https://lyc-chevreuse-gif.ac-versailles.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="pro">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type" data-i18n="experience.typePro"></span>
+              <p class="timeline-date" data-i18n="experience.exp14Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp14Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp14Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp14Desc"></p>
+                <button class="btn-read-more" data-i18n="experience.readMore"></button>
+              </div>
+            </div>
+          </li>
+
+          <li class="timeline-item" data-category="edu">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-type timeline-type-formation" data-i18n="experience.typeEdu"></span>
+              <p class="timeline-date" data-i18n="experience.exp15Date"></p>
+              <h3 class="timeline-title" data-i18n="experience.exp15Title"></h3>
+              <p class="timeline-place" data-i18n="experience.exp15Place"></p>
+              <div class="timeline-desc-container">
+                <p class="timeline-desc text-clamp" data-i18n-html="experience.exp15Desc"></p>
+              </div>
+              <div class="timeline-links">
+                <a href="https://clg-goussons-gif.ac-versailles.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-heading">
+      <div class="halo halo-contact" aria-hidden="true"></div>
+      <div class="section-inner contact-grid">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="contact.eyebrow"></p>
+          <h2 class="section-title" id="contact-heading" data-i18n="contact.title"></h2>
+          <p class="contact-lead" data-i18n="contact.lead"></p>
+          <ul class="contact-info">
+            <li><span class="contact-label" data-i18n="contact.labelEmail"></span><a href="mailto:estelleboisserie@orange.fr">estelleboisserie@orange.fr</a></li>
+            <li><span class="contact-label" data-i18n="contact.labelLocation"></span><span data-i18n="contact.locationValue"></span></li>
+          </ul>
+          <div class="contact-socials">
+            <a href="https://www.linkedin.com/in/estelle-boisserie" class="social-link" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/estelle-bsr" class="social-link" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <form class="glass-card contact-form" id="contact-form" action="https://formspree.io/f/mljrdnqr" method="POST">
+          <div class="form-row">
+            <label for="name" data-i18n="contact.formNameLabel">Nom</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-row">
+            <label for="email" data-i18n="contact.formEmailLabel">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-row">
+            <label for="message" data-i18n="contact.formMessageLabel">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+
+          <p class="rgpd-text" data-i18n="contact.rgpd"></p>
+
+          <button type="submit" class="btn btn-primary form-submit">
+            <span data-i18n="contact.formSubmit">Envoyer le message</span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="modal" id="photo-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-overlay" tabindex="-1" data-close-modal aria-label="Fermer la fenêtre"></div>
+      <div class="modal-content">
+        <button type="button" class="btn-close-modal" aria-label="Fermer" data-close-modal>&times;</button>
+        <img src="" alt="Aperçu de l'expérience" id="modal-image" class="modal-image">
+      </div>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="section-inner footer-inner">
+      <a href="#hero" class="logo">E<span class="logo-dot">.</span>B</a>
+      <p class="footer-text">
+        &copy; <span id="year"></span> <span data-i18n="footer.text"></span>
+        <span style="margin: 0 10px;">|</span> <a href="mentions-legales.html" data-i18n="footer.legal" class="legal-link"></a>
+      </p>
+    </div>
+  </footer>
+  
+</body>
+</html>
