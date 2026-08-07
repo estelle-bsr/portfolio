@@ -611,6 +611,85 @@ function initMagneticButtons(isTouch) {
   });
 }
 
+/**
+ * Initializes the AI Chatbot terminal interface and handles message sending/receiving.
+ * @returns {void}
+ */
+function initChatbot() {
+  const toggleBtn = document.getElementById("chat-toggle-btn");
+  const closeBtn = document.getElementById("chat-close-btn");
+  const chatWindow = document.getElementById("chat-window");
+  const chatForm = document.getElementById("chat-form");
+  const chatInput = document.getElementById("chat-input");
+  const chatMessages = document.getElementById("chat-messages");
+
+  if (!toggleBtn || !chatWindow) return;
+
+  // Toggle Chat Window
+  const toggleChat = () => {
+    const isActive = chatWindow.classList.toggle("is-active");
+    chatWindow.setAttribute("aria-hidden", !isActive);
+    toggleBtn.setAttribute("aria-expanded", isActive);
+    if (isActive) chatInput.focus();
+  };
+
+  toggleBtn.addEventListener("click", toggleChat);
+  closeBtn.addEventListener("click", toggleChat);
+
+  // Add a message to the chat DOM
+  const addMessage = (text, isUser = false) => {
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    
+    if (!isUser) {
+      msgDiv.innerHTML = `<span class="prompt-prefix">estelle_ia@portfolio:~$</span><p>${text}</p>`;
+    } else {
+      msgDiv.textContent = text;
+    }
+    
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  // Handle form submission
+  chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    // 1. Display User Message
+    addMessage(message, true);
+    chatInput.value = "";
+
+    // 2. Display Typing Indicator
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "message bot-message typing-indicator";
+    typingDiv.innerHTML = `<span class="prompt-prefix">estelle_ia@portfolio:~$</span><p>Génération en cours...</p>`;
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // 3. Fetch AI Response from Serverless Function
+    try {
+      // Appel à ton dossier /api que nous avons créé
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      });
+
+      chatMessages.removeChild(typingDiv); // Remove typing indicator
+
+      if (!response.ok) throw new Error("Server Error");
+      
+      const data = await response.json();
+      addMessage(data.reply || "Erreur de réponse.");
+    } catch (error) {
+      if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
+      addMessage("Erreur de connexion. L'IA est hors ligne.");
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
@@ -647,6 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTimelineFilter();
   initReadMore();
   initPhotoModal();
+  initChatbot();
   initContactForm();
 
   const yearEl = document.getElementById("year");

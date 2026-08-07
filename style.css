@@ -395,8 +395,45 @@ input, textarea { font-family: inherit; width: 100%; }
 
 
 /* ==========================================================================
+   9. CHATBOT TERMINAL
+   ========================================================================== */
+.chatbot-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; font-family: 'Courier New', Courier, monospace; }
+.chat-toggle-btn { width: 60px; height: 60px; border-radius: 50%; background: var(--raspberry); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(209, 52, 91, 0.5); transition: transform var(--dur) var(--ease); }
+.chat-toggle-btn:hover { transform: scale(1.1); }
+
+.chat-window { position: absolute; bottom: 80px; right: 0; width: 350px; height: 450px; background: rgba(10, 10, 15, 0.95); border: 1px solid var(--glass-border); border-radius: var(--radius-m); display: flex; flex-direction: column; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all var(--dur) var(--ease); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+.chat-window.is-active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.chat-header { background: #1a1a1a; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--glass-border); }
+.terminal-dots { display: flex; gap: 6px; }
+.terminal-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-dots span:nth-child(1) { background: #ff5f56; }
+.terminal-dots span:nth-child(2) { background: #ffbd2e; }
+.terminal-dots span:nth-child(3) { background: #27c93f; }
+.chat-title { color: var(--text-1); font-size: 0.8rem; font-weight: 600; }
+.chat-close-btn { color: var(--text-2); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
+.chat-close-btn:hover { color: var(--raspberry); }
+
+.chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.85rem; scroll-behavior: smooth; }
+.message { line-height: 1.4; word-wrap: break-word; }
+.bot-message { color: var(--text-0); }
+.user-message { color: var(--raspberry-light); align-self: flex-end; background: rgba(209, 52, 91, 0.1); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(209, 52, 91, 0.2); }
+.prompt-prefix { color: #27c93f; margin-right: 8px; font-weight: bold; }
+.bot-message p { display: inline; }
+
+.chat-input-area { display: flex; align-items: center; padding: 15px; border-top: 1px solid var(--glass-border); background: #121212; }
+.chat-input-area input { flex: 1; background: transparent; border: none; color: var(--text-0); font-family: inherit; font-size: 0.85rem; padding: 0 10px; outline: none; }
+.chat-send-btn { color: var(--raspberry); display: flex; align-items: center; justify-content: center; padding: 5px; transition: color 0.2s; }
+.chat-send-btn:hover { color: var(--raspberry-light); }
+.typing-indicator { color: var(--text-2); font-style: italic; font-size: 0.8rem; }
+
+/* ==========================================================================
    8. RESPONSIVE DESIGN
    ========================================================================== */
+@media (max-width: 480px) {
+  .chat-window { width: 300px; height: 400px; bottom: 70px; right: -10px; }
+}
+
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 60px;}
   .hero-title, .hero-desc, .hero-sub { margin-left: auto; margin-right: auto; }
