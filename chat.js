@@ -27,12 +27,11 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        // CORRECTION ICI : systemInstruction avec un i majuscule
-        systemInstruction: {
+        // CORRECTION : Retour au tiret du bas exigé par l'API Web
+        system_instruction: {
           parts: [{ text: systemPrompt }] 
         },
         contents: [{
-          // CORRECTION ICI : Ajout du rôle "user"
           role: "user",
           parts: [{ text: userMessage }]
         }]
@@ -42,7 +41,8 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Erreur de l'API Gemini :", JSON.stringify(data, null, 2));
+      // Ce console.error s'affichera dans les "Runtime Logs" de Vercel
+      console.error("DÉTAIL ERREUR GEMINI :", JSON.stringify(data, null, 2));
       return res.status(500).json({ error: 'Erreur API Google', details: data });
     }
 
