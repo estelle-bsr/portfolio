@@ -1,111 +1,91 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
 /**
- * Initializes the AI Chatbot terminal.
- * Handles opening/closing the UI, maintaining chat history, 
- * formatting AI markdown to HTML, and communicating with the Vercel API.
+ * Handles the POST request to communicate with the Google Gemini API.
+ * Extracts the user message and conversation history, injects the system prompt,
+ * and returns the AI's generated response.
+ *
+ * @param {Object} req - The HTTP request object (Vercel Serverless Function).
+ * @param {Object} res - The HTTP response object (Vercel Serverless Function).
+ * @returns {Promise<void>} - Responds with a JSON object containing the AI's reply or an error message.
  */
-function initChatbot() {
-  const toggleBtn = document.getElementById("chat-toggle-btn");
-  const closeBtn = document.getElementById("chat-close-btn");
-  const chatWindow = document.getElementById("chat-window");
-  const chatForm = document.getElementById("chat-form");
-  const chatInput = document.getElementById("chat-input");
-  const chatMessages = document.getElementById("chat-messages");
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed.' });
+  }
 
-  if (!toggleBtn || !chatWindow) return;
+  try {
+    const userMessage = req.body.message;
+    const history = req.body.history || [];
 
-  // Stores the conversation history for the AI's memory
-  let chatHistory = [];
-
-  // Toggle UI visibility
-  const toggleChat = () => {
-    const isActive = chatWindow.classList.toggle("is-active");
-    chatWindow.setAttribute("aria-hidden", !isActive);
-    toggleBtn.setAttribute("aria-expanded", isActive);
-    if (isActive) chatInput.focus();
-  };
-
-  toggleBtn.addEventListener("click", toggleChat);
-  closeBtn.addEventListener("click", toggleChat);
-
-  /**
-   * Converts raw Markdown from the AI (**, -, *, \n) into styled HTML for the terminal.
-   * @param {string} text - The raw text from Gemini.
-   * @returns {string} - The formatted HTML string.
-   */
-  const formatTerminalText = (text) => {
-    let formatted = text;
-    // 1. Bold text (**word**) becomes yellow/bold
-    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<span class="term-highlight">$1</span>');
-    // 2. Lists (- item or * item) become green arrows
-    formatted = formatted.replace(/^[-*]\s+(.*)$/gm, '<div class="term-list"><span class="term-bullet">>></span> $1</div>');
-    // 3. Line breaks become HTML breaks
-    formatted = formatted.replace(/\n/g, '<br>');
-    return formatted;
-  };
-
-  /**
-   * Appends a message to the chat UI.
-   * @param {string} text - The message content.
-   * @param {boolean} isUser - True if the message is from the human.
-   * @param {boolean} applyFormatting - True if the text should pass through the Markdown formatter.
-   */
-  const addMessage = (text, isUser = false, applyFormatting = false) => {
-    const msgDiv = document.createElement("div");
-    msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-    
-    if (isUser) {
-      msgDiv.textContent = text;
-    } else {
-      const finalContent = applyFormatting ? formatTerminalText(text) : text;
-      msgDiv.innerHTML = `<span class="prompt-prefix">estelle_ia@portfolio:~$</span><p>${finalContent}</p>`;
+    if (!userMessage || typeof userMessage !== 'string' || userMessage.trim() === '') {
+      return res.status(400).json({ error: 'Invalid or missing message.' });
     }
-    
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  };
 
-  // Handle message submission
-  chatForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const message = chatInput.value.trim();
-    if (!message) return;
-
-    // Display user message
-    addMessage(message, true, false);
-    chatInput.value = "";
-    
-    // Add to memory
-    chatHistory.push({ role: "user", parts: [{ text: message }] });
-
-    // Display loading indicator
-    const typingDiv = document.createElement("div");
-    typingDiv.className = "message bot-message typing-indicator";
-    typingDiv.innerHTML = `<span class="prompt-prefix">estelle_ia@portfolio:~$</span><p>Analyse des données...</p>`;
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message, history: chatHistory })
-      });
-
-      chatMessages.removeChild(typingDiv);
-
-      if (!response.ok) throw new Error("Server Error");
-      
-      const data = await response.json();
-      
-      // Add AI response to memory
-      chatHistory.push({ role: "model", parts: [{ text: data.reply }] });
-      
-      // Display AI response WITH Markdown formatting enabled (true)
-      addMessage(data.reply, false, true);
-
-    } catch (error) {
-      if (chatMessages.contains(typingDiv)) chatMessages.removeChild(typingDiv);
-      addMessage("Erreur réseau : Connexion au serveur perdue.", false, false);
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error("Server Error: Missing API Key.");
+      return res.status(500).json({ error: 'Server configuration error.' });
     }
-  });
-}
+
+    const genAI = new GoogleGenerativeAI(apiKey);
+    
+    const systemPrompt = `You are the virtual assistant of Estelle Boisserie, a cybersecurity engineering student at EPITA.
+    Your mission is to answer recruiters' questions regarding her CV, skills, and experience. 
+    You must dynamically reply in the language the user is speaking (French or English).
+
+    --- ESTELLE'S CV DATA ---
+    TARGET: IT Development Internship (Open to Data, Cyber, AI).
+    AVAILABILITY: 5 weeks minimum. Either Jan-Feb 2028 OR starting April 15, 2028.
+    LOCATION: Villejuif (94), France. Email: estelleboisserie@orange.fr
+
+    SKILLS:
+    - Programming: Python, Java, C, C++, C#.
+    - Web Dev: HTML, CSS, JavaScript, PHP, Django.
+    - Databases: SQL, Oracle (PL/SQL), MySQL.
+    - Tools/Methods: Git, PyQt5, OpenCV, Canva, Agile (Scrum).
+    - Soft Skills: Autonomy, Teamwork, Rigor.
+    - Languages: French (Native), English, Spanish.
+
+    PROFESSIONAL EXPERIENCE:
+    - French Ministry of Armed Forces (Sept 2025 - Present): IT Project & Technical Manager Assistant. Handled project management in a highly secure environment.
+    - CNRS / Léon Brillouin Laboratory (Jan - May 2025): Python Dev Intern. Designed a UI with PyQt5/OpenCV and optimized with Cython. Automated a crystal furnace using AI.
+    - DIRISI (Apr - Aug 2024): Web Dev Intern. Built and deployed a secure intranet site with a database, interactive forum, and user authentication.
+
+    EDUCATION:
+    - EPITA (2025-2029): Master's degree in Cybersecurity.
+    - IUT d'Orsay (2022-2025): Bachelor's in Computer Science.
+    - Key Projects: Nao Robot (Python), "Matthé-Mystère" Educational App (Godot), Project Management tool (Java), Pizzeria App (Web).
+
+    VOLUNTEERING & INTERESTS:
+    - MJC des Fauvettes: Event planning, digital communication, hosting workshops for digital inclusion.
+    - RandoGom Club: Technical management and Twitch live broadcasting.
+    - Certifications: DRSD Secret Protection training, First Aid, Driver's License.
+    - Hobbies: History (WWII), Sports (Dance, Boxing, Weightlifting, Pilates, Running).
+
+    --- STRICT RULES FOR THE AI ---
+    1. NEVER say "Hello", "Welcome", or repeat greetings. The user is in a terminal. Answer the question directly and professionally.
+    2. BE CONCISE. Provide well-structured answers without unnecessary fluff.
+    3. FORMATTING: Use Markdown strictly. Use **bold** for keywords/technologies, and use standard dashes (-) for lists. The frontend terminal will parse this to make it look beautiful.
+    4. NO HALLUCINATION: If asked something not in the data above, say you do not have that information and advise them to contact Estelle via email.
+    5. SAFETY: Refuse to answer personal, inappropriate, or off-topic questions.`;
+
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-3-flash-preview",
+      systemInstruction: systemPrompt
+    });
+
+    const chat = model.startChat({
+      history: history.slice(0, -1),
+    });
+
+    const result = await chat.sendMessage(userMessage);
+    const botReply = result.response.text();
+
+    return res.status(200).json({ reply: botReply });
+
+  } catch (error) {
+    console.error("API Error:", error);
+    return res.status(500).json({ error: 'An error occurred while communicating with the AI.' });
+  }
+};
