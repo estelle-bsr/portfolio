@@ -795,6 +795,28 @@ function initChatbot() {
   });
 }
 
+/**
+ * Gère l'ouverture/fermeture du menu de navigation mobile.
+ */
+function initMobileMenu() {
+  const toggleBtn = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+
+  if (!toggleBtn || !navLinks) return;
+
+  toggleBtn.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("is-open");
+    toggleBtn.setAttribute("aria-expanded", isOpen);
+  });
+
+  // Ferme le menu automatiquement lorsqu'on clique sur un lien du menu
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("is-open");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+  });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
@@ -834,7 +856,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initPhotoModal();
   initChatbot();
   initContactForm();
+  initMobileMenu(); // <--- Ajout de l'initialisation ici
 
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
+
