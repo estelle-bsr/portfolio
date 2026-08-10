@@ -716,10 +716,8 @@ function initChatbot() {
       
       const data = await response.json();
       
-      // Add AI response to memory
       chatHistory.push({ role: "model", parts: [{ text: data.reply }] });
       
-      // Display AI response WITH Markdown formatting enabled (true)
       addMessage(data.reply, false, true);
 
     } catch (error) {
