@@ -442,6 +442,63 @@ input, textarea { font-family: inherit; width: 100%; }
   margin-right: 8px; 
 }
 
+/* --- POPUPS FEEDBACK FORM --- */
+.feedback-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.feedback-popup.is-active {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.feedback-popup .popup-content {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feedback-popup.is-active .popup-content {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+.popup-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin: 0 auto 1.5rem auto;
+  color: white;
+  font-weight: bold;
+}
+
+.success-icon { background-color: #28a745; }
+.error-icon { background-color: #dc3545; }
+
 /* ==========================================================================
    8. RESPONSIVE DESIGN
    ========================================================================== */

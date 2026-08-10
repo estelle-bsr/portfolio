@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   <script src="translations.js" defer></script>
   <script src="script.js" defer></script>
@@ -772,6 +773,24 @@
       </p>
     </div>
   </footer>
+
+  <div class="feedback-popup" id="popup-success" aria-hidden="true">
+    <div class="popup-content glass-card">
+      <div class="popup-icon success-icon">✓</div>
+      <h3 style="margin-bottom: 10px;">Message envoyé !</h3>
+      <p style="margin-bottom: 20px;">Merci de m'avoir contactée, je vous réponds très vite.</p>
+      <button class="btn btn-primary" onclick="closePopup('popup-success')">Super</button>
+    </div>
+  </div>
+
+  <div class="feedback-popup" id="popup-error" aria-hidden="true">
+    <div class="popup-content glass-card">
+      <div class="popup-icon error-icon">✗</div>
+      <h3 style="margin-bottom: 10px;">Oups, une erreur...</h3>
+      <p style="margin-bottom: 20px;">Le message n'a pas pu être envoyé. Veuillez réessayer.</p>
+      <button class="btn btn-outline" onclick="closePopup('popup-error')">Fermer</button>
+    </div>
+  </div>
   
 </body>
 </html>

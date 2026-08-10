@@ -296,7 +296,47 @@ function initPhotoModal() {
 }
 
 /**
- * Gère la soumission du formulaire de contact avec hCaptcha et le backend Vercel.
+ * Ferme un popup spécifique
+ */
+window.closePopup = function(id) {
+  const popup = document.getElementById(id);
+  if(popup) {
+    popup.classList.remove('is-active');
+    popup.setAttribute('aria-hidden', 'true');
+  }
+};
+
+/**
+ * Lance une animation de confettis aux couleurs de ton portfolio
+ */
+function triggerConfetti() {
+  const duration = 3 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+      colors: ['#d1345b', '#ffffff'] // Tes couleurs
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+      colors: ['#d1345b', '#ffffff']
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  }());
+}
+
+/**
+ * Gère la soumission du formulaire de contact avec hCaptcha et popups.
  */
 function initContactForm() {
   const form = document.getElementById("contact-form");
@@ -316,10 +356,10 @@ function initContactForm() {
     }
 
     statut.textContent = "Envoi en cours...";
-    statut.style.color = ""; // On enlève le bleu pour utiliser la couleur du texte par défaut
+    statut.style.color = "";
 
     const donnees = {
-      nom: document.getElementById('name').value, // <-- CORRECTION ICI ('name' au lieu de 'nom')
+      nom: document.getElementById('name').value,
       email: document.getElementById('email').value,
       message: document.getElementById('message').value,
       captchaToken: hcaptchaVal
@@ -332,18 +372,45 @@ function initContactForm() {
         body: JSON.stringify(donnees)
       });
 
+      statut.textContent = ""; // On efface le texte "Envoi en cours..."
+
       if (reponse.ok) {
-        statut.textContent = "Message envoyé avec succès !";
-        statut.style.color = "green";
+        // SUCCÈS
         form.reset();
         if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
+        
+        const popupSuccess = document.getElementById('popup-success');
+        popupSuccess.classList.add('is-active');
+        popupSuccess.setAttribute('aria-hidden', 'false');
+        triggerConfetti();
+
       } else {
-        statut.textContent = "Erreur lors de l'envoi.";
-        statut.style.color = "red";
+        // ERREUR (Mauvais captcha, problème de clé, etc.)
+        const popupError = document.getElementById('popup-error');
+        popupError.classList.add('is-active');
+        popupError.setAttribute('aria-hidden', 'false');
+        
+        // Animation GSAP pour "secouer" le popup d'erreur
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo("#popup-error .popup-content", 
+            { x: -10 }, 
+            { x: 10, duration: 0.1, yoyo: true, repeat: 5, clearProps: "x" }
+          );
+        }
       }
     } catch (erreur) {
-      statut.textContent = "Problème de connexion au serveur.";
-      statut.style.color = "red";
+      // ERREUR RÉSEAU
+      statut.textContent = "";
+      const popupError = document.getElementById('popup-error');
+      popupError.classList.add('is-active');
+      popupError.setAttribute('aria-hidden', 'false');
+      
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo("#popup-error .popup-content", 
+          { x: -10 }, 
+          { x: 10, duration: 0.1, yoyo: true, repeat: 5, clearProps: "x" }
+        );
+      }
     }
   });
 }
