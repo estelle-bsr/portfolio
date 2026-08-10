@@ -294,6 +294,7 @@ function initPhotoModal() {
     }
   });
 }
+
 /**
  * Gère la soumission du formulaire de contact avec hCaptcha et le backend Vercel.
  */
@@ -315,10 +316,10 @@ function initContactForm() {
     }
 
     statut.textContent = "Envoi en cours...";
-    statut.style.color = "blue";
+    statut.style.color = ""; // On enlève le bleu pour utiliser la couleur du texte par défaut
 
     const donnees = {
-      nom: document.getElementById('nom').value,
+      nom: document.getElementById('name').value, // <-- CORRECTION ICI ('name' au lieu de 'nom')
       email: document.getElementById('email').value,
       message: document.getElementById('message').value,
       captchaToken: hcaptchaVal
