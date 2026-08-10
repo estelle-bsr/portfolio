@@ -523,8 +523,9 @@ input, textarea { font-family: inherit; width: 100%; }
 /* Sur les écrans de téléphone (petits écrans) */
 @media (max-width: 768px) {
   .nav-toggle {
-    display: block; /* On affiche le bouton hamburger */
-  }
+  position: relative;
+  z-index: 1001;
+}
 
   .nav-links {
     position: absolute;
