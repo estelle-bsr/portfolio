@@ -30,9 +30,41 @@ export default async function handler(req, res) {
     sender: { name: nom, email: "estelleboisserie@orange.fr" },
     to: [{ email: "estelleboisserie@orange.fr", name: "Moi-même" }],
     subject: `Nouveau message de ${nom} depuis le portfolio`,
-    htmlContent: `<p><strong>Nom:</strong> ${nom}</p>
-                  <p><strong>Email:</strong> ${email}</p>
-                  <p><strong>Message:</strong><br>${message}</p>`
+    htmlContent: `
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f5; padding: 40px 20px; color: #333333;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          
+          <!-- En-tête de l'email -->
+          <div style="background-color: #d1345b; color: #ffffff; padding: 25px 30px; text-align: center;">
+            <h2 style="margin: 0; font-size: 24px; font-weight: 600;">Nouveau Message</h2>
+            <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">Depuis le portfolio d'Estelle</p>
+          </div>
+
+          <!-- Corps du message -->
+          <div style="padding: 30px;">
+            <p style="margin: 0 0 15px 0; font-size: 16px;">
+              <strong>Nom :</strong> ${nom}
+            </p>
+            <p style="margin: 0 0 25px 0; font-size: 16px;">
+              <strong>Email :</strong> <a href="mailto:${email}" style="color: #d1345b; text-decoration: none;">${email}</a>
+            </p>
+            
+            <p style="margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; color: #888888; font-weight: bold; letter-spacing: 1px;">Message :</p>
+            
+            <!-- Boîte de texte avec la bordure colorée -->
+            <div style="background-color: #f9f9f9; border-left: 4px solid #d1345b; padding: 20px; border-radius: 0 4px 4px 0; white-space: pre-wrap; font-size: 15px; line-height: 1.6; color: #444444;">${message}</div>
+          </div>
+
+          <!-- Pied de page -->
+          <div style="background-color: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #eeeeee;">
+            <p style="margin: 0; font-size: 12px; color: #999999;">
+              Vérifié par hCaptcha &bull; Propulsé par Vercel
+            </p>
+          </div>
+
+        </div>
+      </div>
+    `
   };
 
   const envoiEmail = await fetch('https://api.brevo.com/v3/smtp/email', {
