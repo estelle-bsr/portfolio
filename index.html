@@ -19,8 +19,9 @@
   <script src="script.js?v=2.0" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content" data-i18n="nav.skipToContent">Aller au contenu principal</a>
+  <a class="skip-link" href="#main-content" data-i18n="nav.skipToContent"></a>
   
+  <!-- Header & Navigation -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="logo-wrapper" aria-label="Retour accueil">
@@ -36,17 +37,18 @@
       </button>
 
       <nav class="nav-links" id="nav-links" aria-label="Navigation principale" data-i18n-aria-label="nav.navLabel">
-        <a href="#about" data-i18n="nav.about">À propos</a>
-        <a href="#skills" data-i18n="nav.skills">Compétences</a>
-        <a href="#projects" data-i18n="nav.projects">Projets</a>
-        <a href="#experience" data-i18n="nav.experience">Parcours</a>
-        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a href="#about" data-i18n="nav.about"></a>
+        <a href="#skills" data-i18n="nav.skills"></a>
+        <a href="#projects" data-i18n="nav.projects"></a>
+        <a href="#experience" data-i18n="nav.experience"></a>
+        <a href="#contact" data-i18n="nav.contact"></a>
         <div class="lang-switch" role="group" aria-label="Choisir la langue" data-i18n-aria-label="nav.languageLabel">
           <button type="button" class="lang-option is-active" data-lang="fr" aria-pressed="true">FR</button>
           <button type="button" class="lang-option" data-lang="en" aria-pressed="false">EN</button>
         </div>
       </nav>
-      <a href="#contact" class="btn btn-ghost nav-cta" data-i18n="nav.cta">Discutons</a>
+      
+      <a href="#contact" class="btn btn-ghost nav-cta" data-i18n="nav.cta"></a>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème clair ou sombre" data-i18n-aria-label="nav.themeToggleLabel">
         <span class="icon-dark" aria-hidden="true">&#9789;</span>
         <span class="icon-light" aria-hidden="true">&#9728;</span>
@@ -54,7 +56,10 @@
     </div>
   </header>
 
+  <!-- Main Content -->
   <main id="main-content">
+    
+    <!-- Hero Section -->
     <section class="hero" id="hero" aria-label="Présentation">
       <div class="halo halo-primary" aria-hidden="true"></div>
       <div class="halo halo-secondary" aria-hidden="true"></div>
@@ -104,6 +109,7 @@
       </div>
     </section>
 
+    <!-- Infinite Marquee -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <span>Python</span><span>•</span><span>Java</span><span>•</span><span>C++</span><span>•</span><span>JavaScript</span><span>•</span><span>PHP</span><span>•</span><span>Django</span><span>•</span><span>SQL</span><span>•</span><span>Git</span><span>•</span><span>PyQt5</span><span>•</span><span>OpenCV</span><span>•</span><span>Cybersécurité</span><span>•</span><span>Agile / Scrum</span><span>•</span>
@@ -113,6 +119,7 @@
       </div>
     </div>
 
+    <!-- About Section -->
     <section class="section about" id="about" aria-labelledby="about-heading">
       <div class="section-inner">
         <div class="section-head">
@@ -175,6 +182,7 @@
       </div>
     </section>
 
+    <!-- Skills Section -->
     <section class="section skills" id="skills" aria-labelledby="skills-heading">
       <div class="section-inner">
         <div class="section-head center">
@@ -223,6 +231,7 @@
       </div>
     </section>
 
+    <!-- Projects Section -->
     <section class="section projects" id="projects" aria-labelledby="projects-heading">
       <div class="section-inner">
         <div class="section-head">
@@ -417,6 +426,7 @@
       </div>
     </section>
 
+    <!-- Experience Timeline Section -->
     <section class="section experience" id="experience" aria-labelledby="experience-heading">
       <div class="section-inner">
         <div class="section-head center">
@@ -496,7 +506,6 @@
               <div class="timeline-links">
                 <a href="https://www-llb.cea.fr/" target="_blank" class="timeline-link"><span data-i18n="experience.btnWeb"></span></a>
                 <a href="https://iramis.cea.fr/2023/06/nouvel-equipement-spec-llb-pour-les-etudes-en-physique-du-solide-four-a-image-pour-obtenir-des-monocristaux-de-haute-qualite/" target="_blank" class="timeline-link"><span data-i18n="experience.btnArticle"></span></a>
-                <!-- <a href="#" target="_blank" class="timeline-link"><span data-i18n="experience.btnReport"></span></a> -->
               </div>
             </div>
           </li>
@@ -688,6 +697,7 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section class="section contact" id="contact" aria-labelledby="contact-heading">
       <div class="halo halo-contact" aria-hidden="true"></div>
       <div class="section-inner contact-grid">
@@ -707,15 +717,15 @@
         </div>
         <form class="glass-card contact-form" id="contact-form">
           <div class="form-row">
-            <label for="name" data-i18n="contact.formNameLabel">Nom</label>
+            <label for="name" data-i18n="contact.formNameLabel"></label>
             <input type="text" id="name" name="name" autocomplete="name" required>
           </div>
           <div class="form-row">
-            <label for="email" data-i18n="contact.formEmailLabel">Email</label>
+            <label for="email" data-i18n="contact.formEmailLabel"></label>
             <input type="email" id="email" name="email" autocomplete="email" required>
           </div>
           <div class="form-row">
-            <label for="message" data-i18n="contact.formMessageLabel">Message</label>
+            <label for="message" data-i18n="contact.formMessageLabel"></label>
             <textarea id="message" name="message" rows="4" required></textarea>
           </div>
 
@@ -726,13 +736,14 @@
           <div class="h-captcha" data-sitekey="4ecebbb2-e966-47fa-bdc2-a77202be6b90"></div>
 
           <button type="submit" class="btn btn-primary form-submit">
-            <span data-i18n="contact.formSubmit">Envoyer le message</span>
+            <span data-i18n="contact.formSubmit"></span>
           </button>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
 
+    <!-- Image Modal -->
     <div class="modal" id="photo-modal" aria-hidden="true" role="dialog" aria-modal="true">
       <div class="modal-overlay" tabindex="-1" data-close-modal aria-label="Fermer la fenêtre"></div>
       <div class="modal-content">
@@ -741,8 +752,7 @@
       </div>
     </div>
 
-
-    <!-- CHATBOT TERMINAL -->
+    <!-- Chatbot Terminal -->
     <div class="chatbot-container" aria-live="polite">
       <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Ouvrir le chat IA" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
@@ -771,17 +781,19 @@
     </div>
   </main>
   
+  <!-- Footer -->
   <footer class="footer">
     <div class="section-inner footer-inner">
       <a href="#hero" class="logo">E<span class="logo-dot">.</span>B</a>
       <p class="footer-text">
         &copy; <span id="year"></span> <span data-i18n="footer.text"></span>
         <span style="margin: 0 10px;">|</span> <a href="mentions-legales.html" data-i18n="footer.legal" class="legal-link"></a>
-        <span style="margin: 0 10px;">|</span> <a href="https://github.com/estelle-bsr/portfolio" target="_blank" rel="noopener" data-i18n="footer.github" class="legal-link">Code source</a>
+        <span style="margin: 0 10px;">|</span> <a href="https://github.com/estelle-bsr/portfolio" target="_blank" rel="noopener" data-i18n="footer.github" class="legal-link"></a>
       </p>
     </div>
   </footer>
 
+  <!-- Form Feedback Popups -->
   <div class="feedback-popup" id="popup-success" aria-hidden="true">
     <div class="popup-content glass-card">
       <div class="popup-icon success-icon">✓</div>

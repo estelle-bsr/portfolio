@@ -9,7 +9,6 @@ const TYPEWRITER_PAUSE_MS = 1800;
 const ANIMATION_DURATION = 0.8;
 const MODAL_FADEOUT_MS = 400;
 const FORM_STATUS_TIMEOUT_MS = 5000;
-const FORM_SIMULATION_DELAY_MS = 1000;
 const TILT_PERSPECTIVE = 800;
 const SUPPORTED_LANGUAGES = ["fr", "en"];
 
@@ -188,7 +187,6 @@ function initTypewriter(el) {
 
 /**
  * Initializes the timeline filter buttons to show/hide experience items dynamically.
- * Refreshes ScrollTrigger to recalculate page layout heights.
  * @returns {void}
  */
 function initTimelineFilter() {
@@ -296,7 +294,9 @@ function initPhotoModal() {
 }
 
 /**
- * Ferme un popup spécifique
+ * Closes a specific popup modal by its ID.
+ * @param {string} id - The HTML ID of the popup element.
+ * @returns {void}
  */
 window.closePopup = function(id) {
   const popup = document.getElementById(id);
@@ -307,7 +307,8 @@ window.closePopup = function(id) {
 };
 
 /**
- * Lance une animation de confettis aux couleurs de ton portfolio
+ * Triggers a confetti animation with the portfolio's brand colors.
+ * @returns {void}
  */
 function triggerConfetti() {
   const duration = 3 * 1000;
@@ -319,7 +320,7 @@ function triggerConfetti() {
       angle: 60,
       spread: 55,
       origin: { x: 0 },
-      colors: ['#d1345b', '#ffffff'] // Tes couleurs
+      colors: ['#d1345b', '#ffffff']
     });
     confetti({
       particleCount: 5,
@@ -336,13 +337,14 @@ function triggerConfetti() {
 }
 
 /**
- * Gère la soumission du formulaire de contact avec hCaptcha et popups.
+ * Initializes the contact form submission handling, including hCaptcha validation and UI feedback.
+ * @returns {void}
  */
 function initContactForm() {
   const form = document.getElementById("contact-form");
-  const statut = document.getElementById("form-status");
+  const statusEl = document.getElementById("form-status");
 
-  if (!form || !statut) return;
+  if (!form || !statusEl) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); 
@@ -350,15 +352,15 @@ function initContactForm() {
     const hcaptchaVal = document.querySelector('[name=h-captcha-response]').value;
     
     if (!hcaptchaVal) {
-      statut.textContent = "Veuillez cocher la case 'Je suis humain'.";
-      statut.style.color = "red";
+      statusEl.textContent = "Veuillez cocher la case 'Je suis humain'.";
+      statusEl.style.color = "red";
       return;
     }
 
-    statut.textContent = "Envoi en cours...";
-    statut.style.color = "";
+    statusEl.textContent = "Envoi en cours...";
+    statusEl.style.color = "";
 
-    const donnees = {
+    const formData = {
       nom: document.getElementById('name').value,
       email: document.getElementById('email').value,
       message: document.getElementById('message').value,
@@ -366,16 +368,15 @@ function initContactForm() {
     };
 
     try {
-      const reponse = await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(donnees)
+        body: JSON.stringify(formData)
       });
 
-      statut.textContent = ""; // On efface le texte "Envoi en cours..."
+      statusEl.textContent = "";
 
-      if (reponse.ok) {
-        // SUCCÈS
+      if (response.ok) {
         form.reset();
         if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
         
@@ -383,14 +384,11 @@ function initContactForm() {
         popupSuccess.classList.add('is-active');
         popupSuccess.setAttribute('aria-hidden', 'false');
         triggerConfetti();
-
       } else {
-        // ERREUR (Mauvais captcha, problème de clé, etc.)
         const popupError = document.getElementById('popup-error');
         popupError.classList.add('is-active');
         popupError.setAttribute('aria-hidden', 'false');
         
-        // Animation GSAP pour "secouer" le popup d'erreur
         if (typeof gsap !== 'undefined') {
           gsap.fromTo("#popup-error .popup-content", 
             { x: -10 }, 
@@ -398,9 +396,8 @@ function initContactForm() {
           );
         }
       }
-    } catch (erreur) {
-      // ERREUR RÉSEAU
-      statut.textContent = "";
+    } catch (error) {
+      statusEl.textContent = "";
       const popupError = document.getElementById('popup-error');
       popupError.classList.add('is-active');
       popupError.setAttribute('aria-hidden', 'false');
@@ -686,9 +683,8 @@ function initMagneticButtons(isTouch) {
 }
 
 /**
- * Initializes the AI Chatbot terminal.
- * Handles opening/closing the UI, maintaining chat history, 
- * formatting AI markdown to HTML, and communicating with the Vercel API.
+ * Initializes the AI Chatbot terminal and manages API interactions.
+ * @returns {void}
  */
 function initChatbot() {
   const toggleBtn = document.getElementById("chat-toggle-btn");
@@ -700,10 +696,8 @@ function initChatbot() {
 
   if (!toggleBtn || !chatWindow) return;
 
-  // Stores the conversation history for the AI's memory
   let chatHistory = [];
 
-  // Toggle UI visibility
   const toggleChat = () => {
     const isActive = chatWindow.classList.toggle("is-active");
     chatWindow.setAttribute("aria-hidden", !isActive);
@@ -715,26 +709,24 @@ function initChatbot() {
   closeBtn.addEventListener("click", toggleChat);
 
   /**
-   * Converts raw Markdown from the AI (**, -, *, \n) into styled HTML for the terminal.
-   * @param {string} text - The raw text from Gemini.
-   * @returns {string} - The formatted HTML string.
+   * Converts raw Markdown strings into styled HTML for the terminal.
+   * @param {string} text - The raw text payload.
+   * @returns {string} The formatted HTML string.
    */
   const formatTerminalText = (text) => {
     let formatted = text;
-    // 1. Bold text (**word**) becomes yellow/bold
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<span class="term-highlight">$1</span>');
-    // 2. Lists (- item or * item) become green arrows
     formatted = formatted.replace(/^[-*]\s+(.*)$/gm, '<div class="term-list"><span class="term-bullet">>></span> $1</div>');
-    // 3. Line breaks become HTML breaks
     formatted = formatted.replace(/\n/g, '<br>');
     return formatted;
   };
 
   /**
-   * Appends a message to the chat UI.
+   * Appends a new message to the chat interface.
    * @param {string} text - The message content.
-   * @param {boolean} isUser - True if the message is from the human.
-   * @param {boolean} applyFormatting - True if the text should pass through the Markdown formatter.
+   * @param {boolean} isUser - Indicates if the message originated from the human user.
+   * @param {boolean} applyFormatting - Indicates if Markdown formatting should be applied.
+   * @returns {void}
    */
   const addMessage = (text, isUser = false, applyFormatting = false) => {
     const msgDiv = document.createElement("div");
@@ -751,20 +743,15 @@ function initChatbot() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   };
 
-  // Handle message submission
   chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const message = chatInput.value.trim();
     if (!message) return;
 
-    // Display user message
     addMessage(message, true, false);
     chatInput.value = "";
-    
-    // Add to memory
     chatHistory.push({ role: "user", parts: [{ text: message }] });
 
-    // Display loading indicator
     const typingDiv = document.createElement("div");
     typingDiv.className = "message bot-message typing-indicator";
     typingDiv.innerHTML = `<span class="prompt-prefix">estelle_ia@portfolio:~$</span><p>Analyse des données...</p>`;
@@ -783,9 +770,7 @@ function initChatbot() {
       if (!response.ok) throw new Error("Server Error");
       
       const data = await response.json();
-      
       chatHistory.push({ role: "model", parts: [{ text: data.reply }] });
-      
       addMessage(data.reply, false, true);
 
     } catch (error) {
@@ -796,7 +781,8 @@ function initChatbot() {
 }
 
 /**
- * Gère l'ouverture/fermeture du menu de navigation mobile.
+ * Initializes the mobile navigation menu toggle functionality.
+ * @returns {void}
  */
 function initMobileMenu() {
   const toggleBtn = document.getElementById("nav-toggle");
@@ -809,7 +795,6 @@ function initMobileMenu() {
     toggleBtn.setAttribute("aria-expanded", isOpen);
   });
 
-  // Ferme le menu automatiquement lorsqu'on clique sur un lien du menu
   navLinks.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       navLinks.classList.remove("is-open");
@@ -856,9 +841,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initPhotoModal();
   initChatbot();
   initContactForm();
-  initMobileMenu(); // <--- Ajout de l'initialisation ici
+  initMobileMenu();
 
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
-
