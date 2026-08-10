@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   <script src="translations.js" defer></script>
   <script src="script.js" defer></script>
 </head>
@@ -713,6 +714,8 @@
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <p class="rgpd-text" data-i18n="contact.rgpd"></p>
+          
+          <div class="h-captcha" data-sitekey="4ecebbb2-e966-47fa-bdc2-a77202be6b90"></div>
 
           <button type="submit" class="btn btn-primary form-submit">
             <span data-i18n="contact.formSubmit">Envoyer le message</span>

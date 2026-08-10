@@ -294,49 +294,55 @@ function initPhotoModal() {
     }
   });
 }
-
 /**
- * Handles the contact form submission via AJAX to prevent page reload.
- * @returns {void}
+ * Gère la soumission du formulaire de contact avec hCaptcha et le backend Vercel.
  */
 function initContactForm() {
   const form = document.getElementById("contact-form");
-  const statusEl = document.getElementById("form-status");
+  const statut = document.getElementById("form-status");
 
-  if (!form || !statusEl) return;
+  if (!form || !statut) return;
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+    
+    const hcaptchaVal = document.querySelector('[name=h-captcha-response]').value;
+    
+    if (!hcaptchaVal) {
+      statut.textContent = "Veuillez cocher la case 'Je suis humain'.";
+      statut.style.color = "red";
+      return;
+    }
 
-    const submitSpan = form.querySelector(".form-submit span");
-    const originalText = submitSpan ? submitSpan.textContent : "";
-    const lang = document.documentElement.getAttribute("lang") || "fr";
-    const t = translations[lang] ? translations[lang].contact : null;
+    statut.textContent = "Envoi en cours...";
+    statut.style.color = "blue";
 
-    if (submitSpan && t) submitSpan.textContent = t.formSending;
-
-    const actionUrl = form.getAttribute("action");
+    const donnees = {
+      nom: document.getElementById('nom').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value,
+      captchaToken: hcaptchaVal
+    };
 
     try {
-      if (!actionUrl || actionUrl.includes("VOTRE_ID_FORMSPREE")) {
-        await new Promise(resolve => setTimeout(resolve, FORM_SIMULATION_DELAY_MS));
-      } else {
-        const formData = new FormData(form);
-        const response = await fetch(actionUrl, {
-          method: "POST",
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (!response.ok) throw new Error("Network error");
-      }
+      const reponse = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(donnees)
+      });
 
-      if (t) statusEl.textContent = t.formSuccess;
-      form.reset();
-    } catch (error) {
-      statusEl.textContent = lang === "fr" ? "Erreur lors de l'envoi du message." : "Error sending message.";
-    } finally {
-      if (submitSpan) submitSpan.textContent = originalText;
-      setTimeout(() => { statusEl.textContent = ""; }, FORM_STATUS_TIMEOUT_MS);
+      if (reponse.ok) {
+        statut.textContent = "Message envoyé avec succès !";
+        statut.style.color = "green";
+        form.reset();
+        if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
+      } else {
+        statut.textContent = "Erreur lors de l'envoi.";
+        statut.style.color = "red";
+      }
+    } catch (erreur) {
+      statut.textContent = "Problème de connexion au serveur.";
+      statut.style.color = "red";
     }
   });
 }
@@ -722,6 +728,7 @@ function initChatbot() {
     }
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
