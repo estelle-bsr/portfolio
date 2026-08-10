@@ -499,6 +499,60 @@ input, textarea { font-family: inherit; width: 100%; }
 .success-icon { background-color: #28a745; }
 .error-icon { background-color: #dc3545; }
 
+/* --- Styles du Menu Burger & Mobile --- */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-0, #fff);
+  margin: 5px 0;
+  transition: 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Sur les écrans de téléphone (petits écrans) */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block; /* On affiche le bouton hamburger */
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 15px;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  /* Quand on clique sur le bouton et que la classe .is-open s'ajoute via JS */
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 /* ==========================================================================
    8. RESPONSIVE DESIGN
    ========================================================================== */
