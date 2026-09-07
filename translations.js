@@ -56,7 +56,9 @@ const translations = {
       "interest1": "Danse (10 ans)",
       "interest2": "Boxe",
       "interest3": "Course à pied",
-      "interest4": "Histoire & patrimoine"
+      "interest4": "Musculation",
+      "interest5": "Pilate",
+      "interest6": "Histoire & patrimoine"
     },
     "skills": {
       "eyebrow": "Compétences",
@@ -311,7 +313,9 @@ const translations = {
       "interest1": "Dancing (10 years)",
       "interest2": "Boxing",
       "interest3": "Running",
-      "interest4": "History & Heritage"
+      "interest4": "Bodybuilding",
+      "interest5": "Pilates",
+      "interest6": "History & Heritage"
     },
     "skills": {
       "eyebrow": "Skills",
